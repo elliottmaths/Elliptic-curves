@@ -1,10 +1,6 @@
 import math
 import numpy as np
 
-# Below code incorrectly claims that (21, 8) is not finite order,
-# my guess is that the calculations are not done with high enough
-# precision.
-
 def sum_of_points(a, b, P, Q):
     # Returns the point P+Q on the elliptic curve y^2 = x^3 + ax + b
     # (given points P and Q on the curve, and where + is the group operation)
@@ -121,7 +117,8 @@ def isFiniteOrder(a, b, P):
     return False
 
 def torsion_subgroup(a, b):
-    # Type up a des.
+    # Returns the torsion subgroup of the group of rational points
+    # on the elliptic curve y^2 = x^3 + ax + b
     torsion_points = ['id']
     for candidate in NagellLutzList(a, b):
         if isFiniteOrder(a, b, candidate):
@@ -144,11 +141,8 @@ def order_of_P(a, b, P):
             return False
     return False
     
-
-# The below is LMFDB 272.b1, which I am using to test / debug my code
+# The below is LMFDB 272.b1
 a = -1451
 b = 21274
 P = (21, 8)
 Q = P
-
-
