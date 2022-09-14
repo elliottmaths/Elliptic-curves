@@ -118,7 +118,7 @@ def isFiniteOrder(a, b, P):
 
 def torsion_subgroup(a, b):
     # Returns the torsion subgroup of the group of rational points
-    # on the elliptic curve y^2 = x^3 + ax + b
+    # of the elliptic curve y^2 = x^3 + ax + b
     torsion_points = ['id']
     for candidate in NagellLutzList(a, b):
         if isFiniteOrder(a, b, candidate):
@@ -140,7 +140,18 @@ def order_of_P(a, b, P):
         if Q[0] != int(Q[0]) or Q[1] != int(Q[1]):
             return False
     return False
-    
+
+def solns_mod_p(a, b, p):
+    # Returns the solutions of y^2 = x^3 + ax + b modulo a prime p
+    a_red = a % p
+    b_red = b % p
+    solns = ['id']
+    for x_poss in range(p):
+        for y_poss in range(p):
+            if (y_poss**2) % p == (x_poss**3 + a_red*x_poss + b_red) % p:
+                solns.append((x_poss, y_poss))
+    return solns
+
 # The below is LMFDB 272.b1
 a = -1451
 b = 21274
